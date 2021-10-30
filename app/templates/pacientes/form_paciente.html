@@ -1,0 +1,38 @@
+{% extends "base_form.html" %}
+
+{% block title %} Registro de Pacientes {% endblock %}
+
+{% block title_card %} Registro de Pacientes {% endblock %}
+
+{% block action %} url_for('create_paciente') {% endblock %}
+
+{% block body %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="number" name="inputEstatura" id="inputEstatura" placeholder="Estatura (metros)"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <select name="selectSangre" id="selectSangre" class="form-select" style="width: 170px;">
+                                    <option value="" selected>Tipo de sangre</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label for="inputAlergias" class="col-form-label">Indique si padece alguna alergia:</label>
+                            <textarea name="inputAlergias" id="inputAlergias" class="form-control" rows="2"></textarea>
+                        </div>
+                        <br>
+                        
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "menu_pacientes.html" %}
+
+{% block links %}
+<script src="{{ url_for('static', filename='ajax/citas.js') }}"></script>
+{% endblock %}
+
+{% block title %} Dashboard Paciente {% endblock %}
+
+{% block content %} 
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">¡Bienvenido {{ session['nombres']}}!</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Accesos rapidos</li>
+            </ol>
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary text-white shadow mb-4">
+                        <div class="card-body"><a class="text-white stretched-link" href="{{url_for('form_cita')}}" style="text-decoration: none;">Solicitar Cita</a></div>
+                        
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white shadow mb-4">
+                        <div class="card-body"><a class="text-white stretched-link" href="{{url_for('citas')}}" style="text-decoration: none;">Gestionar Citas</a></div>
+                       
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-success text-white shadow mb-4">
+                        <div class="card-body"><a class="text-white stretched-link" href="" style="text-decoration: none;">Mis datos</a></div>
+                        
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-danger text-white shadow mb-4">
+                        <div class="card-body"><a class="text-white stretched-link" href="" style="text-decoration: none;">Cambiar Contraseña</a></div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+            <br>
+            <div class="card mb-4 shadow">
+                <div class="card-header bg-success border border-success text-white">
+                    <i class="fas fa-table me-1"></i>
+                    Citas Aceptadas (proximas)
+                </div>
+                <div class="card-body bg-light border border-success">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Medico</th>
+                                <th>Comentarios</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Medico</th>
+                                <th>Comentarios</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for dato in _citas %}
+                            <tr>
+                                <td>{{ dato[1] }}</td>
+                                <td>{{ dato[3] }}</td>
+                                <td>{{ dato[5] }}</td>
+                                {% if dato[6] =='ACEPTADA' %}
+                                    <td >
+                                        <div class="alert alert-success text-center">
+                                            {{ dato[6] }}
+                                        </div>
+                                    </td>
+                                {% endif %}
+                                <th>
+                                    <form id="form_cancel">
+                                        <input type="hidden" value="{{dato[0]}}" id="idCita" name="idCita">
+                                        <button id="btn_cancelarCita" onclick="cancelarCita()" class="btn btn-danger" type="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-x-fill" viewBox="0 0 16 16">
+                                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zm9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5zm-6.6 5.146a.5.5 0 1 0-.708.708L7.293 10l-1.147 1.146a.5.5 0 0 0 .708.708L8 10.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 10l1.147-1.146a.5.5 0 0 0-.708-.708L8 9.293 6.854 8.146z"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </th>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

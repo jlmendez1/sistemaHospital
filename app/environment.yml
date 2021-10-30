@@ -1,0 +1,9 @@
+name: pacientes-app
+channels:
+  - defaults
+dependencies:
+  - python=3.7.11
+  - pip:
+    - flask
+    - flask-mysqldb
+    - python-dotenv

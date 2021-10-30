@@ -1,0 +1,57 @@
+{% extends "menu_medicos.html" %}
+
+{% block title %} Solicitar Cita {% endblock %}
+
+{% block content %} 
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Listado de Citas</h1><br>
+
+            <div class="card mb-4 shadow">
+                <div class="card-header bg-dark border border-dark text-white">
+                    <i class="fas fa-table me-1"></i>
+                    Citas
+                </div>
+                <div class="card-body bg-light border border-dark">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Medico</th>
+                                <th>Calificacion</th>
+                                <th>Comentarios</th>
+                                <th>Estado</th> 
+                                <th>Acciones</th>    
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Medico</th>
+                                <th>Calificacion</th>
+                                <th>Comentarios</th>
+                                <th>Estado</th> 
+                                <th>Acciones</th> 
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for dato in _result %}
+                            <tr>
+                                <td>{{ dato[2] }}</td>
+                                <td>{{ dato[6] }}</td>
+                                <td>{{ dato[5] }}</td>
+                                <td>{{ dato[4] }}</td>
+                                <td>{{ dato[3] }}</td>
+
+                                <td><a class="btn btn-warning" href="/calificar/{{dato[0]}}">Calificar</a>
+                                <a class="btn btn-primary" href="/detalles_cita/{{dato[0]}}">Detalles</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

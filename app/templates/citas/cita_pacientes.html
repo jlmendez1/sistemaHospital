@@ -1,0 +1,92 @@
+{% extends "menu_pacientes.html" %}
+
+{% block title %} Solicitar Cita {% endblock %}
+
+{% block content %} 
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Listado de Citas</h1><br>
+
+            <div class="card mb-4 shadow">
+                <div class="card-header bg-primary border border-primary text-white">
+                    <i class="fas fa-table me-1"></i>
+                    Mis citas
+                </div>
+                <div class="card-body bg-light border border-dark">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Medico</th>
+                                <th>Calificacion</th>
+                                <th>Comentarios</th>
+                                <th>Estado</th> 
+                                <th>Acciones</th>    
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Medico</th>
+                                <th>Calificacion</th>
+                                <th>Comentarios</th>
+                                <th>Estado</th> 
+                                <th>Acciones</th> 
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for dato in _citas %}
+                            <tr>
+                                {% if dato[1] == None %}
+                                    <td class="fw-bold">Sin definir</td>
+                                {% else %}                             <!-- FECHA -->
+                                    <td class="fw-bold">{{ dato[1] }}</td>
+                                {% endif %}
+
+                                <td> {{ dato[3] }} </td>               <!-- MEDICO -->
+
+                                {% if dato[4] == None %}
+                                    <td class="text-warning fw-bold">Sin calificación aun...</td>             <!-- CALIFICACION -->
+                                {% else %}
+                                    <td>{{ dato[4] }}</td>
+                                {% endif %}
+
+
+                                {% if dato[5] == None %}
+                                    <td class="text-warning text-break fw-bold">Sin comentarios aun...</td>           
+                                {% else %}                              <!-- COMENTARIOS -->
+                                    <td>{{ dato[5] }}</td>
+                                {% endif %}
+
+                                <td>
+                                    {% if dato[6] == "CANCELADA" %}            <!-- ESTADO -->
+                                        <div class="alert alert-danger text-center fw-bold">
+                                            {{ dato[6] }}
+                                        </div>
+                                    {% elif dato[6] == "SIN ACEPTAR" %}
+                                        <div class="alert alert-warning text-center fw-bold">
+                                            {{ dato[6] }}
+                                        </div>
+                                    {% elif dato[6] == "ACEPTADA" %}
+                                        <div class="alert alert-success text-center fw-bold">
+                                            {{ dato[6] }}
+                                        </div>
+                                    {% else %}
+                                        <div class="alert alert-ligth text-center fw-bold">
+                                            {{ dato[6] }}
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <td><a class="btn btn-warning" href="/calificar/{{dato[0]}}">Calificar</a>
+                                <a class="btn btn-primary" href="/detalles_cita/{{dato[0]}}">Detalles</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

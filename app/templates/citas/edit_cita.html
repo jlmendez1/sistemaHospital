@@ -1,0 +1,101 @@
+{% if session['id_rol'] == 2 %}
+    {% extends "menu_pacientes.html" %}
+{% else %}
+    {% extends "menu_pacientes.html" %}
+{% endif %}
+
+{% block title %} Editar cita Cita {% endblock %}
+
+
+{% block content %} 
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Actualización de cita.</h1>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class=flashes>
+                    {% for category, message in messages %}
+                        <section class="{{ category }}">
+                        <div class="flash text-light">{{message}}</div>
+                        </section><br>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            <div class="row">
+                <div class="container">
+                    <div class="col-lg-6 offset-lg-3">
+                        <div class="row justify-content-center">
+                            <div class="col">
+                                <div class="card m-4">
+                                    <div class="card card-header">
+                                        <h3 class="card-title text-center">Actualizar cita</h3>
+                                    </div>
+                                    <div class="card card-body">
+                                        <form class="container" action="{{url_for('update_cita')}}" method="post">
+                                            
+                                            <input id="id_cita" type="hidden" name="{{ _cita[0]}}" value="">
+
+                                            <!-- <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label" for="inputPaciente">Paciente</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="inputPaciente" id="inputPaciente" value="{{ _cita[3]}}" placeholder="Usuario" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label" for="inputFecha">Fecha de cita:</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="date" value="{{_cita[1]}}" class="form-control" name="inputFecha" id="inputFecha">
+                                                </div>
+                                            </div>
+                                            <br> -->
+                                           
+                                            <div class="row">
+                                                <label for="inputComentario" class="col-form-label">Comentarios:</label>
+                                                <textarea value="_cita[5]" name="inputComentario" id="inputComentario" class="form-control" rows="2"></textarea>
+                                            </div>
+                                            <br>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label" for="listEstado">Estado:</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <select name="listEstado" class="form-select">
+                                                            <option value="ACEPTADA" selected>ACEPTADA</option>
+                                                            <option value= "SIN ACEPTAR">SIN ACEPTAR</option>
+                                                            <option value= "CANCELADA">CANCELADA</option>
+                                                            <option value= "CULMINADA">CULMINADA</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <br>
+        
+                                            <div class="row">
+                                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}
